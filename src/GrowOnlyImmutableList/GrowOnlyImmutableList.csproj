@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Version>0.1</Version>
+        <Authors>Vadim Melnikov</Authors>
+        <Company>Vadim Melnikov</Company>
+        <Copyright>Copyright © Vadim Melnikov 2022</Copyright>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/vmelnikov/GrowOnlyImmutableList</PackageProjectUrl>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <RootNamespace>Mvo.GrowOnlyImmutableList</RootNamespace>
+    </PropertyGroup>
+
+</Project>
