@@ -1,3 +1,5 @@
+using System.Collections.Concurrent;
+
 namespace Mvo.GrowOnlyImmutableList;
 
 internal class GrowOnlyBuffer<T> : IGrowOnlyBuffer<T>

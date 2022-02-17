@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrowOnlyImmutableList", "src\GrowOnlyImmutableList\GrowOnlyImmutableList.csproj", "{6A284BD7-C5EE-4B4B-9304-CAB09A9A7ADC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrowOnlyImmutableList.Tests", "tests\GrowOnlyImmutableList.Tests\GrowOnlyImmutableList.Tests.csproj", "{EC43D328-A2B2-45CD-94F9-06B6415586DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{6A284BD7-C5EE-4B4B-9304-CAB09A9A7ADC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A284BD7-C5EE-4B4B-9304-CAB09A9A7ADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A284BD7-C5EE-4B4B-9304-CAB09A9A7ADC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC43D328-A2B2-45CD-94F9-06B6415586DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC43D328-A2B2-45CD-94F9-06B6415586DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC43D328-A2B2-45CD-94F9-06B6415586DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC43D328-A2B2-45CD-94F9-06B6415586DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
