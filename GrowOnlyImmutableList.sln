@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrowOnlyImmutableList", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrowOnlyImmutableList.Tests", "tests\GrowOnlyImmutableList.Tests\GrowOnlyImmutableList.Tests.csproj", "{EC43D328-A2B2-45CD-94F9-06B6415586DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrowOnlyImmutableList.Benchmarks", "benchmarks\GrowOnlyImmutableList.Benchmarks\GrowOnlyImmutableList.Benchmarks.csproj", "{62FD8943-6CA0-47A6-A882-201DA58CAE59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{EC43D328-A2B2-45CD-94F9-06B6415586DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC43D328-A2B2-45CD-94F9-06B6415586DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC43D328-A2B2-45CD-94F9-06B6415586DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62FD8943-6CA0-47A6-A882-201DA58CAE59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62FD8943-6CA0-47A6-A882-201DA58CAE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62FD8943-6CA0-47A6-A882-201DA58CAE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62FD8943-6CA0-47A6-A882-201DA58CAE59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
