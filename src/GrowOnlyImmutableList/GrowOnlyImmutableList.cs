@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Mvo.GrowOnlyImmutableList.Enumerators;
 
 namespace Mvo.GrowOnlyImmutableList;
 
@@ -29,10 +30,10 @@ public class GrowOnlyImmutableList<T> : IGrowOnlyImmutableList<T>
         _items = new T[capacity];
     }
 
-    private GrowOnlyImmutableList(T[] items, int count)
+    private GrowOnlyImmutableList(T[] items, int size)
     {
         _items = items;
-        Count = count;
+        Count = size;
     }
 
     /// <inheritdoc cref="IReadOnlyCollection{T}"/>
@@ -42,22 +43,19 @@ public class GrowOnlyImmutableList<T> : IGrowOnlyImmutableList<T>
     public T this[int index] =>
         _items[index];
 
+    public ArrayEnumeratorStruct<T> GetEnumerator() =>
+        new(_items, Count);
+    
+    /// <inheritdoc/>
+    IEnumerator<T> IEnumerable<T>.GetEnumerator() =>
+        new ArrayEnumeratorObject<T>(_items, Count);
 
     /// <inheritdoc/>
-    public IEnumerator<T> GetEnumerator()
-    {
-        for (var i = 0; i < Count; i++)
-            yield return _items[i];
-    }
+    IEnumerator IEnumerable.GetEnumerator() =>
+        new ArrayEnumeratorObject<T>(_items, Count);
 
-    /// <inheritdoc/>
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    /// <inheritdoc/>
-    public IGrowOnlyImmutableList<T> Add(T value)
+    /// See the <see cref="IGrowOnlyImmutableList{T}"/> interface.
+    public GrowOnlyImmutableList<T> Add(T value)
     {
         var growAttemptsCount = Interlocked.Increment(ref _growAttemptsCount);
         //We must create a copy of items array if Add method called twice or more for one instance of list
@@ -65,6 +63,10 @@ public class GrowOnlyImmutableList<T> : IGrowOnlyImmutableList<T>
         items[Count] = value;
         return new GrowOnlyImmutableList<T>(items, Count + 1);
     }
+
+    /// See the <see cref="IGrowOnlyImmutableList{T}"/> interface.
+    IGrowOnlyImmutableList<T> IGrowOnlyImmutableList<T>.Add(T value) => Add(value);
+
 
     private T[] GetItems(bool asCopy)
     {
