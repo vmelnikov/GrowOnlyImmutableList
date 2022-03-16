@@ -9,7 +9,7 @@ public class GrowOnlyImmutableListTest
     public void Test1()
     {
         const int count = 100000;
-        IGrowOnlyImmutableList<int> list = new GrowOnlyImmutableList<int>();
+        var list = new GrowOnlyImmutableList<int>();
         for (var i = 0; i < count; i++)
             list = list.Add(i);
         Assert.Equal(count, list.Count);
