@@ -43,6 +43,9 @@ public class GrowOnlyImmutableList<T> : IGrowOnlyImmutableList<T>
     public T this[int index] =>
         _items[index];
 
+    /// <summary>
+    /// Returns high performed enumerator 
+    /// </summary>
     public ArrayEnumeratorStruct<T> GetEnumerator() =>
         new(_items, Count);
     
