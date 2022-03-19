@@ -1,5 +1,9 @@
 # GrowOnlyImmutableList
 
+
+[![NuGet](https://img.shields.io/nuget/v/GrowOnlyImmutableList.svg)](https://www.nuget.org/packages/GrowOnlyImmutableList)
+[![NuGet](https://img.shields.io/nuget/dt/GrowOnlyImmutableList.svg)](https://www.nuget.org/packages/GrowOnlyImmutableList)
+
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=macOS Monterey 12.2.1 (21D62) [Darwin 21.3.0]
