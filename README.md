@@ -4,6 +4,13 @@
 [![NuGet](https://img.shields.io/nuget/v/GrowOnlyImmutableList.svg)](https://www.nuget.org/packages/GrowOnlyImmutableList)
 [![NuGet](https://img.shields.io/nuget/dt/GrowOnlyImmutableList.svg)](https://www.nuget.org/packages/GrowOnlyImmutableList)
 
+
+### GrowOnlyImmutableList
+
+GrowOnlyImmutableList is a thread safe immutable list of objects that can be accessed by index. 
+It is much faster than ImmutableList and ImmutableArray in add operations and it has the same performance as ImmutableArray in read, indexed scenarios.
+
+
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=macOS Monterey 12.2.1 (21D62) [Darwin 21.3.0]
