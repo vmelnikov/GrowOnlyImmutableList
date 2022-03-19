@@ -62,9 +62,35 @@ public class GrowOnlyImmutableList<T> : IGrowOnlyImmutableList<T>
     {
         var growAttemptsCount = Interlocked.Increment(ref _growAttemptsCount);
         //We must create a copy of items array if Add method called twice or more for one instance of list
-        var items = Count == _items.Length ? GrowItems() : GetItems(growAttemptsCount > 1);
+        var newCount = Count + 1;
+        var items = Count == _items.Length ? GrowItems(newCount) : GetItems(growAttemptsCount > 1);
         items[Count] = value;
-        return new GrowOnlyImmutableList<T>(items, Count + 1);
+        return new GrowOnlyImmutableList<T>(items, newCount);
+    }
+
+    public IGrowOnlyImmutableList<T> AddRange(IEnumerable<T> collection)
+    {
+        if (collection is not ICollection<T> collection1)
+        {
+            var newList = this;
+            foreach (var obj in collection)
+                newList = newList.Add(obj);
+            return newList;
+        }
+
+        var countToAdd = collection1.Count;
+        if (countToAdd == 0)
+            return this;
+        
+        var growAttemptsCount = Interlocked.Increment(ref _growAttemptsCount);
+        //We must create a copy of items array if Add method called twice or more for one instance of list
+        var newCount = Count + countToAdd;
+        var items = Count == _items.Length ? GrowItems(newCount) : GetItems(growAttemptsCount > 1);
+        var array = new T[countToAdd];
+        collection1.CopyTo(array, 0);
+        array.CopyTo(_items, Count);
+        return new GrowOnlyImmutableList<T>(items, newCount);   
+ 
     }
 
     /// See the <see cref="IGrowOnlyImmutableList{T}"/> interface.
@@ -81,17 +107,26 @@ public class GrowOnlyImmutableList<T> : IGrowOnlyImmutableList<T>
     }
 
     /// <summary>
-    /// Increases capacity of items array to twice the current capacity and copy items into it
+    /// Increases capacity of items array and copy items into it
     /// </summary>
+    /// <param name="newCount"></param>
     /// <returns>Array with new capacity</returns>
-    private T[] GrowItems()
+    private T[] GrowItems(int newCount)
     {
-        var capacity = _items.Length;
-        var newCapacity = capacity == 0 ? DefaultCapacity : capacity * 2;
-        if ((uint)newCapacity > int.MaxValue)
-            newCapacity = int.MaxValue;
+        var newCapacity = GrowCapacity(newCount);
         var newItems = new T[newCapacity];
         Array.Copy(_items, newItems, Count);
         return newItems;
+    }
+
+    private int GrowCapacity(int newCount)
+    {
+        var capacity = _items.Length;
+        var newCapacity = capacity == 0 ? DefaultCapacity : capacity * 2;
+        while (newCapacity < newCount)
+            newCapacity *= 2;
+        if ((uint)newCapacity > int.MaxValue)
+            newCapacity = int.MaxValue;
+        return newCapacity;
     }
 }
