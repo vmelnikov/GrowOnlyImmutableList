@@ -63,12 +63,12 @@ public class GrowOnlyImmutableList<T> : IGrowOnlyImmutableList<T>
         var growAttemptsCount = Interlocked.Increment(ref _growAttemptsCount);
         //We must create a copy of items array if Add method called twice or more for one instance of list
         var newCount = Count + 1;
-        var items = Count == _items.Length ? GrowItems(newCount) : GetItems(growAttemptsCount > 1);
+        var items = newCount > _items.Length ? GrowItems(newCount) : GetItems(growAttemptsCount > 1);
         items[Count] = value;
         return new GrowOnlyImmutableList<T>(items, newCount);
     }
 
-    public IGrowOnlyImmutableList<T> AddRange(IEnumerable<T> collection)
+    public GrowOnlyImmutableList<T> AddRange(IEnumerable<T> collection)
     {
         if (collection is not ICollection<T> collection1)
         {
@@ -85,17 +85,19 @@ public class GrowOnlyImmutableList<T> : IGrowOnlyImmutableList<T>
         var growAttemptsCount = Interlocked.Increment(ref _growAttemptsCount);
         //We must create a copy of items array if Add method called twice or more for one instance of list
         var newCount = Count + countToAdd;
-        var items = Count == _items.Length ? GrowItems(newCount) : GetItems(growAttemptsCount > 1);
+        var items = newCount > _items.Length ? GrowItems(newCount) : GetItems(growAttemptsCount > 1);
         var array = new T[countToAdd];
         collection1.CopyTo(array, 0);
-        array.CopyTo(_items, Count);
-        return new GrowOnlyImmutableList<T>(items, newCount);   
- 
+        array.CopyTo(items, Count);
+        return new GrowOnlyImmutableList<T>(items, newCount);
     }
 
     /// See the <see cref="IGrowOnlyImmutableList{T}"/> interface.
     IGrowOnlyImmutableList<T> IGrowOnlyImmutableList<T>.Add(T value) => Add(value);
 
+    
+    /// See the <see cref="IGrowOnlyImmutableList{T}"/> interface.
+    IGrowOnlyImmutableList<T> IGrowOnlyImmutableList<T>.AddRange(IEnumerable<T> collection) => AddRange(collection);
 
     private T[] GetItems(bool asCopy)
     {

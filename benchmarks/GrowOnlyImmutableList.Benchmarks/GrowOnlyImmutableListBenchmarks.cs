@@ -8,7 +8,10 @@ namespace GrowOnlyImmutableList.Benchmarks;
 public class GrowOnlyImmutableListBenchmarks
 {
     private const int Count = 100000;
+    private const int DataBlockSize = 1000;
+    private const int AddRangeCount = 100;
 
+    private List<int> _dataBlock = new();
     private List<int> _list = new();
     private GrowOnlyImmutableList<int> _growOnlyImmutableList = new();
     private ImmutableList<int> _immutableList = ImmutableList<int>.Empty;
@@ -25,6 +28,9 @@ public class GrowOnlyImmutableListBenchmarks
             growOnlyImmutableList = growOnlyImmutableList.Add(i);
         }
 
+        for (var i = 0; i < DataBlockSize; i++)
+            _dataBlock.Add(i);
+
         _list = list;
         _growOnlyImmutableList = growOnlyImmutableList;
         _immutableList = list.ToImmutableList();
@@ -34,7 +40,7 @@ public class GrowOnlyImmutableListBenchmarks
     [Benchmark]
     public void GrowOnlyImmutableList_Add()
     {
-        IGrowOnlyImmutableList<int> list = new GrowOnlyImmutableList<int>();
+        var list = new GrowOnlyImmutableList<int>();
         for (var i = 0; i < Count; i++)
             list = list.Add(i);
     }
@@ -42,7 +48,7 @@ public class GrowOnlyImmutableListBenchmarks
     [Benchmark]
     public void List_Add()
     {
-        IList<int> list = new List<int>();
+        var list = new List<int>();
         for (var i = 0; i < Count; i++)
             list.Add(i);
     }
@@ -61,6 +67,38 @@ public class GrowOnlyImmutableListBenchmarks
         var array = ImmutableArray<int>.Empty;
         for (var i = 0; i < Count; i++)
             array = array.Add(i);
+    }
+    
+    [Benchmark]
+    public void GrowOnlyImmutableList_AddRange()
+    {
+        var list = new GrowOnlyImmutableList<int>();
+        for (var i = 0; i < AddRangeCount; i++)
+            list = list.AddRange(_dataBlock);
+    }
+    
+    [Benchmark]
+    public void List_AddRange()
+    {
+        var list = new List<int>();
+        for (var i = 0; i < AddRangeCount; i++)
+            list.AddRange(_dataBlock);
+    }
+    
+    [Benchmark]
+    public void ImmutableList_AddRange()
+    {
+        var list = ImmutableList<int>.Empty;
+        for (var i = 0; i < AddRangeCount; i++)
+            list = list.AddRange(_dataBlock);
+    }
+    
+    [Benchmark]
+    public void ImmutableArray_AddRange()
+    {
+        var array = ImmutableArray<int>.Empty;
+        for (var i = 0; i < AddRangeCount; i++)
+            array = array.AddRange(_dataBlock);
     }
  
     [Benchmark]
